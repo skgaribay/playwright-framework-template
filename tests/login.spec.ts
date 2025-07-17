@@ -18,7 +18,7 @@ test.describe('Login functionality', () => {
         });
     });
 
-    test('user cannot log in with invalid credentials', async () => {
+    test('user cannot log in with invalid credentials', {tag: ['@smoke', '@negative']}, async () => {
         await loginPage.login('invalid_user', 'wrong_password');
         const errorValue = await loginPage.getLoginError();
         test.step('Verify login error message', async () => {
