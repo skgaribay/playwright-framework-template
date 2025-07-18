@@ -30,7 +30,7 @@ test.describe('Login functionality', () => {
         await loginPage.login('','');
         const errorValue = await loginPage.getLoginError();
         test.step('Verify login error message', async () => {
-            expect(errorValue).toBe('Epic sadface: Username is required');
+            expect(errorValue).toBe('Epic sadface: Username is required1');
         });
     });
 
