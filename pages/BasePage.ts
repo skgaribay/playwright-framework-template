@@ -8,31 +8,37 @@ export class BasePage {
         this.page = page;
     }
 
-    protected locator(selector: string): Locator {
-        return this.page.locator(selector);
-    }
+    // if you need to access a locator in a test by text
+    getLocatorByText(text: string, exact: boolean = true): Locator {
+		return this.page.getByText(text, { exact });
+	}
 
-    async goto(url: string) {
-        await this.page.goto(url);
-    }
+    // protected locator(selector: string): Locator {
+    //     return this.page.locator(selector);
+    // }
 
-    async click(selector: string) {
-        await this.locator(selector).click();
-    }
+    // async goto(url: string) {
+    //     await this.page.goto(url);
+    // }
 
-    async fill(selector: string, value: string) {
-        await this.locator(selector).fill(value);
-    }
+    // async click(selector: string) {
+    //     await this.locator(selector).click();
+    // }
 
-    async isVisible(selector: string): Promise<boolean> {
-        return await this.locator(selector).isVisible();
-    }
+    // async fill(selector: string, value: string) {
+    //     await this.locator(selector).fill(value);
+    // }
 
-    async getText(selector: string): Promise<string> {
-        return await this.locator(selector).textContent() ?? '';
-    }
+    // async isVisible(selector: string): Promise<boolean> {
+    //     return await this.locator(selector).isVisible();
+    // }
+
+    // async getText(selector: string): Promise<string> {
+    //     return await this.locator(selector).textContent() ?? '';
+    // }
 }
 
+// Decorator to wrap methods in test.step for better reporting
 export function step(stepName?: string) {
     return function decorator(
         target: Function,

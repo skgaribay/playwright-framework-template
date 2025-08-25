@@ -2,17 +2,28 @@ import { BasePage, step } from './BasePage';
 import { Page, Locator } from '@playwright/test';
 
 export class LoginPage extends BasePage {
-    private readonly usernameInput: Locator;
-    private readonly passwordInput: Locator;
-    private readonly loginButton: Locator;
 
     constructor(page: Page) {
         super(page);
-        this.usernameInput = page.locator('#user-name');
-        this.passwordInput = page.locator('#password');
-        this.loginButton = page.locator('#login-button');
     }
 
+    // Private locators
+    private get usernameInput(): Locator {
+        return this.page.locator('#user-name');
+    }
+
+    private get passwordInput(): Locator {
+        return this.page.locator('#password');
+    }
+
+    private get loginButton(): Locator {
+        return this.page.locator('#login-button');
+    }
+
+    // Public locators, accessible from tests
+
+
+    // Step methods
     @step("Login with the provided credentials") 
     async login(username: string, password: string) {
         await this.usernameInput.fill(username);
@@ -22,12 +33,14 @@ export class LoginPage extends BasePage {
 
     @step("Navigate to the login page")
     async gotoLogin() {
-        await this.goto('');
+        await this.page.goto('');
     }
 
     @step("Get the login error message")
     async getLoginError(): Promise<string> {
         return await this.page.locator('[data-test="error"]').textContent() ?? '';
     }
+
+    // Helper methods
         
 }

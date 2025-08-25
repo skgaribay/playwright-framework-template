@@ -6,6 +6,8 @@ export class PageFactory {
     private _loginPage?: LoginPage;
     private _productsPage?: ProductsPage;
 
+    // Constructor to initialize the page factory with a Playwright Page instance
+
     constructor(private page: Page) {}
 
     get loginPage(): LoginPage {
@@ -24,4 +26,5 @@ export class PageFactory {
     // Add more page getters as needed
 }
 
+// make sure to export the page types for use in tests
 export type { LoginPage, ProductsPage };

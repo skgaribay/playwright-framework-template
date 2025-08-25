@@ -1,4 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
+dotenv.config({override: true}); // Load environment variables from .env file, overriding existing ones
 
 /**
  * Read environment variables from file.
@@ -33,7 +35,28 @@ export default defineConfig({
     //video: 'retain-on-failure',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on',
+    //trace: 'retain-on-failure',
+  },
+
+  //set wait timeouts
+  timeout: 1 * 60000, // 2 * 60 seconds for each test
+
+  expect: {
+    /**
+     * Maximum time expect() should wait for the condition to be met.
+     * For example in `await expect(locator).toHaveText();`
+     */
+    timeout: 5000, // 5 seconds
+    /**
+     * Interval at which the condition is checked.
+     */
+    // pollingInterval: 100, // 100 ms
+
+    // screenshot options
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.01, // 1% difference allowed
+      animations: 'disabled', // disable animations for screenshot comparison
+    }
   },
 
   /* Configure projects for major browsers */
